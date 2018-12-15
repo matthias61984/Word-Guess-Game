@@ -1,4 +1,3 @@
-// SET ALL GLOBAL VARIABLES
 // Array defining playable words
 var wordBank = [
     'pansearedsalmon',
@@ -12,10 +11,11 @@ var wordBank = [
     'fishandchips',
     'yorkshirepudding'
 ];
+
 // Chooses random word from wordBank
 var randomize = Math.floor(Math.random()*wordBank.length);
 // Stores random word from wordBank in variable
-var wordToGuess = wordBank[randomize];
+var wordToGuess;
 // Set empty array that will contain the current word
 var wordToGuessArr = [];
 // Defines empty array that will hold wrong letters
@@ -38,9 +38,12 @@ var targetWrongGuesses = document.getElementById("wrong-guesses");
 var targetLossCounter = document.getElementById("loss-counter");
 // Target win-counter element and store in variable
 var targetWinCounter = document.getElementById("win-counter");
+
 // DEFINE ALL FUNCTIONS
+
 // Define function to set up the game: choose and present hidden word
 function startGame() {
+    wordToGuess = wordBank[randomize];
     for (var i=0; i < wordToGuess.length; i++) {
         wordToGuessArr.push("_");
     };
@@ -48,8 +51,9 @@ function startGame() {
     targetWordBlanks.innerHTML = str;
     console.log(wordToGuess);
 };
-// When a letter key is pressed
 startGame();
+
+// When a letter key is pressed
 document.onkeyup = makeGuess;
 function makeGuess() {
     if (event.keyCode >= 65 && event.keyCode <= 90 ) {
@@ -62,24 +66,41 @@ function makeGuess() {
 // What to do when letter is wrong
 function wrongGuess(letter) {
     wrongLetters.push(letter);
-    guessesLeft == guessesLeft--;
+    guessesLeft--;
     targetWrongGuesses.innerHTML = wrongLetters;
     targetGuessesLeft.innerHTML = guessesLeft;
     if (guessesLeft < 0) {
         alert("You burned it!");
-        losses == losses++;
+        losses++;
         targetLossCounter.innerHTML = losses;
         wordToGuessArr = [];
         wrongLetters = [];
         targetWrongGuesses.innerHTML = wrongLetters;
         guessesLeft = 8;
         targetGuessesLeft.innerHTML = guessesLeft;
-        var wordToGuess = wordBank[randomize];
+        wordToGuess = wordBank[randomize];
         startGame();
     };
 };
 
-// Check the letter to se if it's in the word
+// Check for win conditions and reset the game
+function checkWin() {
+    if (winArray.length == wordToGuessArr.length) {
+        alert("Fantastic, you CAN cook!");
+        wins++;
+        targetWinCounter.innerHTML = wins;
+        wordToGuessArr = [];
+        wrongLetters = [];
+        winArray = [];
+        targetWrongGuesses.innerHTML = wrongLetters;
+        guessesLeft = 8;
+        targetGuessesLeft.innerHTML = guessesLeft;
+        wordToGuess = wordBank[randomize];
+        startGame();
+    };
+};
+
+// Check the letter to see if it's in the word
 function checkGuess(letter) {
     if (wrongLetters.includes(letter) == true || wordToGuessArr.includes(letter) == true) {
         alert("You already guessed that letter, you donkey!");
@@ -96,21 +117,4 @@ function checkGuess(letter) {
         wrongGuess(letter);
     };
     checkWin();
-};
-
-// Check for win conditions and reset the game
-function checkWin() {
-    if (winArray.length == wordToGuess.length) {
-        alert("Fantastic, you CAN cook!");
-        wins == wins++;
-        targetWinCounter.innerHTML = wins;
-        wordToGuessArr = [];
-        wrongLetters = [];
-        winArray = [];
-        targetWrongGuesses.innerHTML = wrongLetters;
-        guessesLeft = 8;
-        targetGuessesLeft.innerHTML = guessesLeft;
-        var wordToGuess = wordBank[randomize];
-        startGame();
-    };
 };
