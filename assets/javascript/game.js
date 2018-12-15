@@ -12,7 +12,7 @@ var wordBank = [
     'yorkshirepudding'
 ];
 
-// Stores random word from wordBank in variable
+// Sets wordToGuess variable globally accessible
 var wordToGuess;
 // Set empty array that will contain the current word
 var wordToGuessArr = [];
@@ -76,7 +76,6 @@ function wrongGuess(letter) {
         targetWrongGuesses.innerHTML = wrongLetters;
         guessesLeft = 8;
         targetGuessesLeft.innerHTML = guessesLeft;
-        wordToGuess = wordBank[randomize];
         startGame();
     };
 };
