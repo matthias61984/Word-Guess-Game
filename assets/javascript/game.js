@@ -12,8 +12,6 @@ var wordBank = [
     'yorkshirepudding'
 ];
 
-// Chooses random word from wordBank
-var randomize = Math.floor(Math.random()*wordBank.length);
 // Stores random word from wordBank in variable
 var wordToGuess;
 // Set empty array that will contain the current word
@@ -43,7 +41,7 @@ var targetWinCounter = document.getElementById("win-counter");
 
 // Define function to set up the game: choose and present hidden word
 function startGame() {
-    wordToGuess = wordBank[randomize];
+    wordToGuess = wordBank[Math.floor(Math.random()*wordBank.length)];
     for (var i=0; i < wordToGuess.length; i++) {
         wordToGuessArr.push("_");
     };
@@ -95,7 +93,6 @@ function checkWin() {
         targetWrongGuesses.innerHTML = wrongLetters;
         guessesLeft = 8;
         targetGuessesLeft.innerHTML = guessesLeft;
-        wordToGuess = wordBank[randomize];
         startGame();
     };
 };
