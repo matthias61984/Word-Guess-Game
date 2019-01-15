@@ -22,7 +22,7 @@ Deployed on heroku at
 
 ## Built With
 
-HTML, CSS, Javascript, and Jquery
+HTML, CSS, Bootstrap, and Javascript
 
 ## Authors
 
